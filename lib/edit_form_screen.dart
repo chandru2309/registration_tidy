@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:registration_tidy/helper_class.dart';
 import 'package:registration_tidy/list_screen.dart';
+import 'package:registration_tidy/module.dart';
 
 import 'main.dart';
 
-class FormScreen extends StatefulWidget {
-  const FormScreen({super.key});
+class EditFormScreen extends StatefulWidget {
+  const EditFormScreen({super.key});
 
   @override
-  State<FormScreen> createState() => _FormScreenState();
+  State<EditFormScreen> createState() => _EditFormScreenState();
 }
 
-class _FormScreenState extends State<FormScreen> {
+class _EditFormScreenState extends State<EditFormScreen> {
   var studentNameController = TextEditingController();
   var fatherNameController = TextEditingController();
   var motherNameController = TextEditingController();
@@ -21,8 +22,29 @@ class _FormScreenState extends State<FormScreen> {
   var phoneController = TextEditingController();
   var selectedGender;
   var _selectedQualification;
+
+  var _firstTimeFlag = false;
+  var _selectedId = 0;
+
   @override
   Widget build(BuildContext context) {
+    if (_firstTimeFlag == false) {
+      print('data Executed');
+      _firstTimeFlag == true;
+      print('Data Received');
+      final registrationDetails =
+          ModalRoute.of(context)!.settings.arguments as RegistrationModels;
+      _selectedId = registrationDetails.id!;
+      studentNameController.text = registrationDetails.studentName;
+      fatherNameController.text = registrationDetails.fatherName;
+      motherNameController.text = registrationDetails.motherName;
+      dateOfBirthController.text = registrationDetails.dateOfBirth;
+      emailController.text = registrationDetails.email;
+      phoneController.text = registrationDetails.phone;
+      selectedGender = registrationDetails.gender;
+      _selectedQualification = registrationDetails.qualification;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -207,10 +229,10 @@ class _FormScreenState extends State<FormScreen> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  print('----> Save Button Clicked');
+                  print('----> Update Button Clicked');
                   _save();
                 },
-                child: Text('Save'))
+                child: Text('Update'))
           ],
         ),
       ),
@@ -228,27 +250,27 @@ class _FormScreenState extends State<FormScreen> {
     print('---->Qualification:${_selectedQualification}');
     print('---->Gender:${selectedGender}');
 
-Map<String, dynamic>row={
-  DataBaseHelper.columnStudentName:studentNameController.text,
-  DataBaseHelper.columnFatherName:fatherNameController.text,
-  DataBaseHelper.columnMotherName:motherNameController.text,
-  DataBaseHelper.columnDateOfBirth:dateOfBirthController.text,
-  DataBaseHelper.columnEmail:emailController.text,
-  DataBaseHelper.columnPhone:phoneController.text,
-  DataBaseHelper.columnGender:selectedGender.toString(),
-  DataBaseHelper.columnQualification:_selectedQualification.toString(),
-};
+    Map<String, dynamic> row = {
+      DataBaseHelper.columnStudentName: studentNameController.text,
+      DataBaseHelper.columnFatherName: fatherNameController.text,
+      DataBaseHelper.columnMotherName: motherNameController.text,
+      DataBaseHelper.columnDateOfBirth: dateOfBirthController.text,
+      DataBaseHelper.columnEmail: emailController.text,
+      DataBaseHelper.columnPhone: phoneController.text,
+      DataBaseHelper.columnGender: selectedGender.toString(),
+      DataBaseHelper.columnQualification: _selectedQualification.toString(),
+    };
     final result = await dbHelper.insertregistrationdetails(row);
     print('-------------------$result');
-    _showSuccessSnacksBar(this.context, 'Saved Successfully');
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => ListScreen()));
+    _showSuccessSnacksBar(this.context, 'Update Successfully');
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => ListScreen()));
   }
+
   void _showSuccessSnacksBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(new SnackBar(content: new Text(message)));
   }
-
 
   Widget reuseableFormField(
       TextEditingController userController, String hintname) {
