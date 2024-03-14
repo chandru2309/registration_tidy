@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:registration_tidy/helper_class.dart';
 import 'package:registration_tidy/list_screen.dart';
 import 'package:registration_tidy/module.dart';
