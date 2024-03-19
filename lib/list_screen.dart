@@ -20,10 +20,10 @@ class _ListScreenState extends State<ListScreen> {
   void initState() {
     super.initState();
     print('---->initState');
-    _registrationDetails();
+    _getRegistrationDetails();
   }
 
-  _registrationDetails() async {
+  _getRegistrationDetails() async {
     final _registrationModels = await dbHelper.getAllRegistrationDetails();
     _registrationModels.forEach((registrationDetailsrow) {
       setState(() {

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:registration_tidy/helper_class.dart';
 import 'package:registration_tidy/list_screen.dart';
 import 'package:registration_tidy/module.dart';
@@ -13,6 +16,27 @@ class EditFormScreen extends StatefulWidget {
 }
 
 class _EditFormScreenState extends State<EditFormScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  late String imagepath = '';
+
+  Future<void> _pickImage(ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.getImage(source: source);
+    if (pickedImage != null) {}
+  }
+
+  Future<void> _pickImageFromGallery() async {
+    await _pickImage(ImageSource.gallery);
+  }
+
+  Future<void> _pickImageFromCamera() async {
+    await _pickImage(ImageSource.camera);
+  }
+
   var studentNameController = TextEditingController();
   var fatherNameController = TextEditingController();
   var motherNameController = TextEditingController();
@@ -31,27 +55,37 @@ class _EditFormScreenState extends State<EditFormScreen> {
       print('data Executed');
       _firstTimeFlag == true;
       print('Data Received');
-      final registrationDetails =
+      final RegistrationDetails =
           ModalRoute.of(context)!.settings.arguments as RegistrationModels;
-      _selectedId = registrationDetails.id!;
-      studentNameController.text = registrationDetails.studentName;
-      fatherNameController.text = registrationDetails.fatherName;
-      motherNameController.text = registrationDetails.motherName;
-      dateOfBirthController.text = registrationDetails.dateOfBirth;
-      emailController.text = registrationDetails.email;
-      phoneController.text = registrationDetails.phone;
-      selectedGender = registrationDetails.gender;
-      _selectedQualification = registrationDetails.qualification;
+      _selectedId = RegistrationDetails.id!;
+      studentNameController.text=RegistrationDetails.studentName;
+      fatherNameController.text=RegistrationDetails.fatherName;
+      motherNameController.text=RegistrationDetails.motherName;
+      dateOfBirthController.text=RegistrationDetails.dateOfBirth;
+      emailController.text=RegistrationDetails.email;
+      phoneController.text=RegistrationDetails.phone;
+      selectedGender=RegistrationDetails.gender;
+      _selectedQualification=RegistrationDetails.qualification;
     }
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.teal,
         centerTitle: mounted,
         title: Text(
           'Registration form',
           style: TextStyle(fontSize: 28, color: Colors.white),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                print('---->delete button clicked');
+                showAlertDialog(context);
+              },
+              icon: Icon(Icons.delete))
+        ],
+
+
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -67,6 +101,35 @@ class _EditFormScreenState extends State<EditFormScreen> {
             Text(
               'Registration Form',
               style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Stack(
+              children: [
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: FileImage(File(imagepath)),
+                ),
+                CircleAvatar(
+                  radius: 80,
+                ),
+                Positioned(
+                  bottom: 20,
+                  left: 90,
+                  child: IconButton(
+                    onPressed: () {
+                      _showImagePickerDialog();
+                      _showProfilePickerDialog();
+                    },
+                    icon: Icon(
+                      Icons.add_a_photo,
+                      color: Colors.teal,
+                      size: 27,
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 20,
@@ -226,12 +289,26 @@ class _EditFormScreenState extends State<EditFormScreen> {
                 )
               ],
             ),
-            ElevatedButton(
-                onPressed: () {
-                  print('----> Update Button Clicked');
-                  _save();
-                },
-                child: Text('Update'))
+            SizedBox(
+              height: 15,
+            ),
+            SizedBox(
+              width: 255,
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.black)),
+                  onPressed: () {
+                    print('----> Update Button Clicked');
+                    _save();
+                  },
+                  child: Text(
+                    'Update',
+                    style: TextStyle(color: Colors.teal),
+                  )),
+            ),
+            SizedBox(
+              height: 25,
+            ),
           ],
         ),
       ),
@@ -271,11 +348,42 @@ class _EditFormScreenState extends State<EditFormScreen> {
         .showSnackBar(new SnackBar(content: new Text(message)));
   }
 
+  delete() async {
+    await dbHelper.deleteRegistrationDetails(_selectedId);
+    Navigator.of(this.context)
+        .push(MaterialPageRoute(builder: (context) => ListScreen()));
+    _showSuccessSnacksBar(this.context, 'deleted successfully');
+  }
+
+  showAlertDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Confirm Delete'),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    delete();
+                  },
+                  child:Text ('yes')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child:Text ('No'))
+            ],
+          );
+        }
+    );
+  }
+
+
   Widget reuseableFormField(
       TextEditingController userController, String hintname) {
     return Expanded(
       child: Container(
-        height: 50,
+        height: 61,
         child: Card(
           margin: EdgeInsets.only(right: 16),
           child: TextFormField(
@@ -287,6 +395,60 @@ class _EditFormScreenState extends State<EditFormScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showImagePickerDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Pick Image From"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickImageFromGallery();
+              },
+              child: Text("Gallery"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickImageFromCamera();
+              },
+              child: Text("Camera"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _showProfilePickerDialog() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Pick Image From"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickImageFromGallery();
+              },
+              child: Text("Gallery"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickImageFromCamera();
+              },
+              child: Text("Camera"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DataBaseHelper {
   static const dataBaseName = 'Registration.db';
-  static const dataBaseVersion = 4;
+  static const dataBaseVersion = 8;
   static const dataBaseTableName = '_registrationTable';
 
   static const columnId = 'id';
@@ -56,5 +56,21 @@ $columnQualification TEXT
 
   Future<List<Map<String, dynamic>>> getAllRegistrationDetails() async {
     return await _db.query(dataBaseTableName);
+  }
+  Future<int> updateRegistrationDetails(Map<String, dynamic> row) async {
+    int id = row[columnId];
+    return await _db.update(
+      dataBaseTableName,
+      row,
+      where: '$columnId = ?',
+      whereArgs: [id],
+    );
+  }
+  Future<int> deleteRegistrationDetails(int id) async {
+    return await _db.delete(
+      dataBaseTableName,
+      where: '$columnId = ?',
+      whereArgs: [id],
+    );
   }
 }

@@ -9,6 +9,7 @@ class RegistrationModels {
   late String gender;
   late String qualification;
 
+
   RegistrationModels(
       this.id,
       this.studentName,
