@@ -20,23 +20,6 @@ class _EditFormScreenState extends State<EditFormScreen> {
   void initState() {
     super.initState();
   }
-
-  late String imagepath = '';
-
-  Future<void> _pickImage(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: source);
-    if (pickedImage != null) {}
-  }
-
-  Future<void> _pickImageFromGallery() async {
-    await _pickImage(ImageSource.gallery);
-  }
-
-  Future<void> _pickImageFromCamera() async {
-    await _pickImage(ImageSource.camera);
-  }
-
   var studentNameController = TextEditingController();
   var fatherNameController = TextEditingController();
   var motherNameController = TextEditingController();
@@ -108,27 +91,10 @@ class _EditFormScreenState extends State<EditFormScreen> {
             Stack(
               children: [
                 CircleAvatar(
-                  radius: 70,
-                  backgroundImage: FileImage(File(imagepath)),
-                ),
-                CircleAvatar(
+                  backgroundImage: AssetImage('image/500x500-square-bg-trans.png'),
                   radius: 80,
                 ),
-                Positioned(
-                  bottom: 20,
-                  left: 90,
-                  child: IconButton(
-                    onPressed: () {
-                      _showImagePickerDialog();
-                      _showProfilePickerDialog();
-                    },
-                    icon: Icon(
-                      Icons.add_a_photo,
-                      color: Colors.teal,
-                      size: 27,
-                    ),
-                  ),
-                ),
+
               ],
             ),
             SizedBox(
@@ -395,60 +361,6 @@ class _EditFormScreenState extends State<EditFormScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  void _showImagePickerDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Pick Image From"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _pickImageFromGallery();
-              },
-              child: Text("Gallery"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _pickImageFromCamera();
-              },
-              child: Text("Camera"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  _showProfilePickerDialog() {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Pick Image From"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _pickImageFromGallery();
-              },
-              child: Text("Gallery"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _pickImageFromCamera();
-              },
-              child: Text("Camera"),
-            ),
-          ],
-        );
-      },
     );
   }
 }

@@ -19,23 +19,6 @@ class _FormScreenState extends State<FormScreen> {
   void initState() {
     super.initState();
   }
-
-  late String imagepath = '';
-
-  Future<void> _pickImage(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: source);
-    if (pickedImage != null) {
-    }
-  }
-  Future<void> _pickImageFromGallery() async {
-    await _pickImage(ImageSource.gallery);
-  }
-
-  Future<void> _pickImageFromCamera() async {
-    await _pickImage(ImageSource.camera);
-  }
-
   var studentNameController = TextEditingController();
   var fatherNameController = TextEditingController();
   var motherNameController = TextEditingController();
@@ -63,40 +46,20 @@ class _FormScreenState extends State<FormScreen> {
               height: 5,
             ),
             Center(
-                child: Text(
-                  'Tidy Life Pvt Ltd',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Tidy Life Pvt Ltd',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
                 )),
-            Text(
-              'Registration Form',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+
             Stack(
               children: [
                 CircleAvatar(
-                  radius: 70,
-                  backgroundImage: FileImage(File(imagepath)),
-                ),
-                CircleAvatar(
-                  radius: 80,
-                ),
-                Positioned(
-                  bottom: 20,
-                  left: 90,
-                  child: IconButton(
-                    onPressed: () {
-                      _showImagePickerDialog();
-                      _showProfilePickerDialog();
-                    },
-                    icon: Icon(
-                      Icons.add_a_photo,
-                      color: Colors.teal,
-                      size: 27,
-                    ),
-                  ),
+                  backgroundColor: Colors.white10,
+                  backgroundImage: AssetImage('image/500x500-square-bg-trans.png'),
+                  radius: 75,
                 ),
               ],
             ),
@@ -333,60 +296,6 @@ class _FormScreenState extends State<FormScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  void _showImagePickerDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Pick Image From"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _pickImageFromGallery();
-              },
-              child: Text("Gallery"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _pickImageFromCamera();
-              },
-              child: Text("Camera"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  _showProfilePickerDialog() {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Pick Image From"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _pickImageFromGallery();
-              },
-              child: Text("Gallery"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _pickImageFromCamera();
-              },
-              child: Text("Camera"),
-            ),
-          ],
-        );
-      },
     );
   }
 }

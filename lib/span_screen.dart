@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:registration_tidy/edit_form_screen.dart';
-import 'package:registration_tidy/helper_class.dart';
-import 'package:registration_tidy/module.dart';
 
-import 'form_screen.dart';
+import 'edit_form_screen.dart';
+import 'helper_class.dart';
 import 'main.dart';
+import 'module.dart';
 
-class ListScreen extends StatefulWidget {
-  const ListScreen({super.key});
+class SpanScreen extends StatefulWidget {
+  const SpanScreen({super.key});
 
   @override
-  State<ListScreen> createState() => _ListScreenState();
+  State<SpanScreen> createState() => _SpanScreenState();
 }
 
-class _ListScreenState extends State<ListScreen> {
+class _SpanScreenState extends State<SpanScreen> {
   List<RegistrationModels> registrationDetailslist = [];
 
   @override
@@ -51,19 +50,8 @@ class _ListScreenState extends State<ListScreen> {
       });
     });
   }
-
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.teal,
-        centerTitle: true,
-        title: Text(
-          'Tidy Life Registration',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      ),
       body: ListView.builder(
         itemCount: registrationDetailslist.length,
         itemBuilder: (context, index) {
@@ -198,18 +186,6 @@ class _ListScreenState extends State<ListScreen> {
             ),
           );
         },
-      ),
-      floatingActionButton: Container(
-        height: 65,
-        width: 160,
-        child: FloatingActionButton(
-          onPressed: () {
-            print('---->Launch Button Clicked');
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => FormScreen()));
-          },
-          child: Text('Click here to Register'),
-        ),
       ),
     );
   }
