@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:registration_tidy/helper_class.dart';
 import 'package:registration_tidy/list_screen.dart';
 
@@ -19,6 +16,7 @@ class _FormScreenState extends State<FormScreen> {
   void initState() {
     super.initState();
   }
+
   var studentNameController = TextEditingController();
   var fatherNameController = TextEditingController();
   var motherNameController = TextEditingController();
@@ -47,18 +45,18 @@ class _FormScreenState extends State<FormScreen> {
             ),
             Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Tidy Life Pvt Ltd',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                  ),
-                )),
-
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Tidy Life Pvt Ltd',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              ),
+            )),
             Stack(
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.white10,
-                  backgroundImage: AssetImage('image/500x500-square-bg-trans.png'),
+                  backgroundImage:
+                      AssetImage('image/500x500-square-bg-trans.png'),
                   radius: 75,
                 ),
               ],
@@ -228,14 +226,16 @@ class _FormScreenState extends State<FormScreen> {
               width: 255,
               child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.black)),
+                      backgroundColor: MaterialStatePropertyAll(Colors.teal)),
                   onPressed: () {
                     print('----> Save Button Clicked');
                     _save();
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ListScreen()));
                   },
                   child: Text(
                     'Save',
-                    style: TextStyle(color: Colors.teal),
+                    style: TextStyle(color: Colors.white),
                   )),
             ),
             SizedBox(

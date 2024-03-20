@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:registration_tidy/helper_class.dart';
-import 'package:registration_tidy/list_screen.dart';
 import 'package:registration_tidy/module.dart';
+import 'package:registration_tidy/list_screen.dart';
 
 import 'main.dart';
 
@@ -20,6 +19,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
   void initState() {
     super.initState();
   }
+
   var studentNameController = TextEditingController();
   var fatherNameController = TextEditingController();
   var motherNameController = TextEditingController();
@@ -41,14 +41,14 @@ class _EditFormScreenState extends State<EditFormScreen> {
       final RegistrationDetails =
           ModalRoute.of(context)!.settings.arguments as RegistrationModels;
       _selectedId = RegistrationDetails.id!;
-      studentNameController.text=RegistrationDetails.studentName;
-      fatherNameController.text=RegistrationDetails.fatherName;
-      motherNameController.text=RegistrationDetails.motherName;
-      dateOfBirthController.text=RegistrationDetails.dateOfBirth;
-      emailController.text=RegistrationDetails.email;
-      phoneController.text=RegistrationDetails.phone;
-      selectedGender=RegistrationDetails.gender;
-      _selectedQualification=RegistrationDetails.qualification;
+      studentNameController.text = RegistrationDetails.studentName;
+      fatherNameController.text = RegistrationDetails.fatherName;
+      motherNameController.text = RegistrationDetails.motherName;
+      dateOfBirthController.text = RegistrationDetails.dateOfBirth;
+      emailController.text = RegistrationDetails.email;
+      phoneController.text = RegistrationDetails.phone;
+      selectedGender = RegistrationDetails.gender;
+      _selectedQualification = RegistrationDetails.qualification;
     }
 
     return Scaffold(
@@ -65,10 +65,11 @@ class _EditFormScreenState extends State<EditFormScreen> {
                 print('---->delete button clicked');
                 showAlertDialog(context);
               },
-              icon: Icon(Icons.delete))
+              icon: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ))
         ],
-
-
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -77,24 +78,21 @@ class _EditFormScreenState extends State<EditFormScreen> {
               height: 5,
             ),
             Center(
-                child: Text(
-              'Tidy Life Pvt Ltd',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Tidy Life Pvt Ltd',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              ),
             )),
-            Text(
-              'Registration Form',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(
-              height: 20,
-            ),
             Stack(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage('image/500x500-square-bg-trans.png'),
-                  radius: 80,
+                  backgroundColor: Colors.white10,
+                  backgroundImage:
+                      AssetImage('image/500x500-square-bg-trans.png'),
+                  radius: 75,
                 ),
-
               ],
             ),
             SizedBox(
@@ -262,14 +260,16 @@ class _EditFormScreenState extends State<EditFormScreen> {
               width: 255,
               child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.black)),
+                      backgroundColor: MaterialStatePropertyAll(Colors.teal)),
                   onPressed: () {
                     print('----> Update Button Clicked');
-                    _save();
+                    _update();
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ListScreen()));
                   },
                   child: Text(
                     'Update',
-                    style: TextStyle(color: Colors.teal),
+                    style: TextStyle(color: Colors.white),
                   )),
             ),
             SizedBox(
@@ -281,7 +281,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
     );
   }
 
-  void _save() async {
+  void _update() async {
     print('---->save');
     print('---->Student Name:${studentNameController.text}');
     print('---->Father Name:${fatherNameController.text}');
@@ -306,7 +306,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
     print('-------------------$result');
     _showSuccessSnacksBar(this.context, 'Update Successfully');
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => ListScreen()));
+        .pushReplacement(MaterialPageRoute(builder: (context) => ListScreen()));
   }
 
   void _showSuccessSnacksBar(BuildContext context, String message) {
@@ -332,18 +332,16 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   onPressed: () {
                     delete();
                   },
-                  child:Text ('yes')),
+                  child: Text('yes')),
               ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child:Text ('No'))
+                  child: Text('No'))
             ],
           );
-        }
-    );
+        });
   }
-
 
   Widget reuseableFormField(
       TextEditingController userController, String hintname) {

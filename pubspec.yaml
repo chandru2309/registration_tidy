@@ -41,6 +41,7 @@ dependencies:
   path:
   intl:
   shared_preferences:
+  loading_animation_widget:
 
 
 dev_dependencies:

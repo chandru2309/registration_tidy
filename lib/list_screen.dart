@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:registration_tidy/edit_form_screen.dart';
-import 'package:registration_tidy/helper_class.dart';
-import 'package:registration_tidy/module.dart';
 
+import 'edit_form_screen.dart';
 import 'form_screen.dart';
+import 'helper_class.dart';
 import 'main.dart';
+import 'module.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -56,13 +56,12 @@ class _ListScreenState extends State<ListScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        centerTitle: true,
+        centerTitle: mounted,
         title: Text(
-          'Tidy Life Registration',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          'Registration Details',
+          style: TextStyle(color: Colors.white,fontSize: 28),
         ),
+        automaticallyImplyLeading: false,
       ),
       body: ListView.builder(
         itemCount: registrationDetailslist.length,
@@ -76,7 +75,8 @@ class _ListScreenState extends State<ListScreen> {
             },
             child: ListTile(
               title: Container(
-                color: Colors.red,
+                height: 180,
+                color: Colors.teal,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -86,7 +86,7 @@ class _ListScreenState extends State<ListScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: '   Name: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                           ),
                           TextSpan(
                             text: registrationDetailslist[index].studentName,
@@ -100,7 +100,7 @@ class _ListScreenState extends State<ListScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: '   Father Name: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                           ),
                           TextSpan(
                             text: registrationDetailslist[index].fatherName,
@@ -114,7 +114,7 @@ class _ListScreenState extends State<ListScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: '   Mother Name: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                           ),
                           TextSpan(
                             text: registrationDetailslist[index].motherName,
@@ -128,7 +128,7 @@ class _ListScreenState extends State<ListScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: '   DOB: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                           ),
                           TextSpan(
                             text: registrationDetailslist[index].dateOfBirth,
@@ -142,7 +142,7 @@ class _ListScreenState extends State<ListScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: '   Email: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                           ),
                           TextSpan(
                             text: registrationDetailslist[index].email,
@@ -156,7 +156,7 @@ class _ListScreenState extends State<ListScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: '   Phone: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                           ),
                           TextSpan(
                             text: registrationDetailslist[index].phone,
@@ -170,7 +170,7 @@ class _ListScreenState extends State<ListScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: '   Gender: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                           ),
                           TextSpan(
                             text: registrationDetailslist[index].gender,
@@ -184,7 +184,7 @@ class _ListScreenState extends State<ListScreen> {
                         children: <TextSpan>[
                           TextSpan(
                             text: '   Qualification: ',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                           ),
                           TextSpan(
                             text: registrationDetailslist[index].qualification,
@@ -201,14 +201,14 @@ class _ListScreenState extends State<ListScreen> {
       ),
       floatingActionButton: Container(
         height: 65,
-        width: 160,
-        child: FloatingActionButton(
+        width: 170,
+        child: FloatingActionButton(backgroundColor: Colors.teal,
           onPressed: () {
             print('---->Launch Button Clicked');
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => FormScreen()));
           },
-          child: Text('Click here to Register'),
+          child: Text('Go To Registration Form',style: TextStyle(color: Colors.white),),
         ),
       ),
     );

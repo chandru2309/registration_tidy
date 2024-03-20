@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:registration_tidy/form_screen.dart';
 import 'package:registration_tidy/helper_class.dart';
-import 'list_screen.dart';
+import 'package:registration_tidy/splash_screen.dart';
 
 final dbHelper=DataBaseHelper();
 
@@ -20,10 +21,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      home:ListScreen()
+      home:SplashScreen()
     );
   }
 }

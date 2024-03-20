@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DataBaseHelper {
   static const dataBaseName = 'Registration.db';
-  static const dataBaseVersion = 8;
+  static const dataBaseVersion = 9;
   static const dataBaseTableName = '_registrationTable';
 
   static const columnId = 'id';
