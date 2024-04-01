@@ -75,121 +75,153 @@ class _ListScreenState extends State<ListScreen> {
             },
             child: ListTile(
               title: Container(
-                height: 180,
+                height: 270,
                 color: Colors.teal,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '   Name: ',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: registrationDetailslist[index].studentName,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '   Name: ',
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: registrationDetailslist[index].studentName,
+                              style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '   Father Name: ',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: registrationDetailslist[index].fatherName,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '   Father Name: ',
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: registrationDetailslist[index].fatherName,
+                                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '   Mother Name: ',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: registrationDetailslist[index].motherName,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '   Mother Name: ',
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: registrationDetailslist[index].motherName,
+                                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '   DOB: ',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: registrationDetailslist[index].dateOfBirth,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '   DOB: ',
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: registrationDetailslist[index].dateOfBirth,
+                                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '   Email: ',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: registrationDetailslist[index].email,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '   Email: ',
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: registrationDetailslist[index].email,
+                                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '   Phone: ',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: registrationDetailslist[index].phone,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '   Phone: ',
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: registrationDetailslist[index].phone,
+                                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '   Gender: ',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: registrationDetailslist[index].gender,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '   Gender: ',
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: registrationDetailslist[index].gender,
+                                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '   Qualification: ',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          TextSpan(
-                            text: registrationDetailslist[index].qualification,
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '   Qualification: ',
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: registrationDetailslist[index].qualification,
+                                style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

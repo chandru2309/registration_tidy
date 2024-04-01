@@ -293,6 +293,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
     print('---->Gender:${selectedGender}');
 
     Map<String, dynamic> row = {
+      DataBaseHelper.columnId:_selectedId,
       DataBaseHelper.columnStudentName: studentNameController.text,
       DataBaseHelper.columnFatherName: fatherNameController.text,
       DataBaseHelper.columnMotherName: motherNameController.text,
@@ -302,7 +303,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
       DataBaseHelper.columnGender: selectedGender.toString(),
       DataBaseHelper.columnQualification: _selectedQualification.toString(),
     };
-    final result = await dbHelper.insertregistrationdetails(row);
+    final result = await dbHelper.updateRegistrationDetails(row);
     print('-------------------$result');
     _showSuccessSnacksBar(this.context, 'Update Successfully');
     Navigator.of(context)

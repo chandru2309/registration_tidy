@@ -181,7 +181,7 @@ class _FormScreenState extends State<FormScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Text(
-                    'phone :',
+                    'Phone :',
                   ),
                 ),
                 SizedBox(
