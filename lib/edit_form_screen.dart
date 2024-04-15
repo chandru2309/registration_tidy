@@ -15,6 +15,8 @@ class EditFormScreen extends StatefulWidget {
 }
 
 class _EditFormScreenState extends State<EditFormScreen> {
+  final _formKey = GlobalKey<FormState>(); // Add this line
+
   @override
   void initState() {
     super.initState();
@@ -34,12 +36,12 @@ class _EditFormScreenState extends State<EditFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_firstTimeFlag == false) {
+    if (!_firstTimeFlag) {
       print('data Executed');
-      _firstTimeFlag == true;
+      _firstTimeFlag = true; // Corrected assignment here
       print('Data Received');
       final RegistrationDetails =
-          ModalRoute.of(context)!.settings.arguments as RegistrationModels;
+      ModalRoute.of(context)!.settings.arguments as RegistrationModels;
       _selectedId = RegistrationDetails.id!;
       studentNameController.text = RegistrationDetails.studentName;
       fatherNameController.text = RegistrationDetails.fatherName;
@@ -61,221 +63,291 @@ class _EditFormScreenState extends State<EditFormScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                print('---->delete button clicked');
-                showAlertDialog(context);
-              },
-              icon: Icon(
-                Icons.delete,
-                color: Colors.white,
-              ))
+            onPressed: () {
+              print('---->delete button clicked');
+              showAlertDialog(context);
+            },
+            icon: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+          )
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 5,
-            ),
-            Center(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Tidy Life Pvt Ltd',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+        child: Form(
+          key: _formKey, // Assign _formKey
+          child: Column(
+            children: [
+              SizedBox(
+                height: 5,
               ),
-            )),
-            Stack(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white10,
-                  backgroundImage:
-                      AssetImage('image/500x500-square-bg-trans.png'),
-                  radius: 75,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Tidy Life Pvt Ltd',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text('Name :'),
-                ),
-                SizedBox(
-                  width: 55,
-                ),
-                reuseableFormField(studentNameController, 'Enter Student Name'),
-              ],
-            ),
-            SizedBox(
-              height: 18,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text('Father Name :'),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                reuseableFormField(fatherNameController, 'Enter Father Name'),
-              ],
-            ),
-            SizedBox(
-              height: 18,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text('Mother Name :'),
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                reuseableFormField(motherNameController, 'Enter Mother Name'),
-              ],
-            ),
-            SizedBox(
-              height: 18,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text('Gender :'),
-                ),
-                SizedBox(
-                  width: 35,
-                ),
-                Radio(
+              ),
+              Stack(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.white10,
+                    backgroundImage:
+                    AssetImage('image/500x500-square-bg-trans.png'),
+                    radius: 75,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text('Name :'),
+                  ),
+                  SizedBox(
+                    width: 55,
+                  ),
+                  reuseableFormField(
+                    studentNameController,
+                    'Enter Student Name',
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a student name';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text('Father Name :'),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  reuseableFormField(
+                    fatherNameController,
+                    'Enter Father Name',
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter father\'s name';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text('Mother Name :'),
+                  ),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  reuseableFormField(
+                    motherNameController,
+                    'Enter Mother Name',
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter mother\'s name';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text('Gender :'),
+                  ),
+                  SizedBox(
+                    width: 35,
+                  ),
+                  Radio(
                     value: 'Male',
                     groupValue: selectedGender,
                     onChanged: (value) {
                       setState(() {
                         selectedGender = value;
                       });
-                    }),
-                Text('Male'),
-                SizedBox(
-                  width: 15,
-                ),
-                Radio(
-                  value: 'Female',
-                  groupValue: selectedGender,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedGender = value;
-                    });
-                  },
-                ),
-                Text('Female')
-              ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text(
-                    'Date Of Birth :',
+                    },
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                reuseableFormField(dateOfBirthController, 'Enter DOB'),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text(
-                    'E-mail :',
+                  Text('Male'),
+                  SizedBox(
+                    width: 15,
                   ),
-                ),
-                SizedBox(
-                  width: 54,
-                ),
-                reuseableFormField(emailController, 'Enter Email'),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text(
-                    'phone :',
-                  ),
-                ),
-                SizedBox(
-                  width: 54,
-                ),
-                reuseableFormField(phoneController, 'Enter Phone Number'),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Text('Qualification :'),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: DropdownButton(
-                    value: _selectedQualification,
-                    hint: Text('Select Qualification'),
-                    items: <String>[
-                      '10th',
-                      '12th',
-                      'Degree',
-                      'Master Degree',
-                      'None'
-                    ].map((String value) {
-                      return DropdownMenuItem(value: value, child: Text(value));
-                    }).toList(),
+                  Radio(
+                    value: 'Female',
+                    groupValue: selectedGender,
                     onChanged: (value) {
                       setState(() {
-                        _selectedQualification = value;
+                        selectedGender = value;
                       });
                     },
                   ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              width: 255,
-              child: ElevatedButton(
+                  Text('Female'),
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      'Date Of Birth :',
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  reuseableFormField(
+                    dateOfBirthController,
+                    'Enter DOB',
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your date of birth';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      'E-mail :',
+                    ),
+                  ),
+                  SizedBox(
+                    width: 54,
+                  ),
+                  reuseableFormField(
+                    emailController,
+                    'Enter Email',
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter an email';
+                      } else if (!value.contains('@')) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      'phone :',
+                    ),
+                  ),
+                  SizedBox(
+                    width: 54,
+                  ),
+                  reuseableFormField(
+                    phoneController,
+                    'Enter Phone Number',
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a phone number';
+                      } else if (value.length != 10) {
+                        return 'Please enter a valid phone number';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Text('Qualification :'),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: DropdownButton(
+                      value: _selectedQualification,
+                      hint: Text('Select Qualification'),
+                      items: <String>[
+                        '10th',
+                        '12th',
+                        'Degree',
+                        'Master Degree',
+                        'None'
+                      ].map((String value) {
+                        return DropdownMenuItem(
+                            value: value, child: Text(value));
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedQualification = value;
+                        });
+                      },
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                width: 255,
+                child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.teal)),
+                    backgroundColor: MaterialStatePropertyAll(Colors.teal),
+                  ),
                   onPressed: () {
                     print('----> Update Button Clicked');
-                    _update();
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ListScreen()));
+                    if (_formKey.currentState!.validate()) {
+                      _update();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ListScreen()),
+                      );
+                    }
                   },
                   child: Text(
                     'Update',
                     style: TextStyle(color: Colors.white),
-                  )),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-          ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -293,7 +365,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
     print('---->Gender:${selectedGender}');
 
     Map<String, dynamic> row = {
-      DataBaseHelper.columnId:_selectedId,
+      DataBaseHelper.columnId: _selectedId,
       DataBaseHelper.columnStudentName: studentNameController.text,
       DataBaseHelper.columnFatherName: fatherNameController.text,
       DataBaseHelper.columnMotherName: motherNameController.text,
@@ -305,47 +377,56 @@ class _EditFormScreenState extends State<EditFormScreen> {
     };
     final result = await dbHelper.updateRegistrationDetails(row);
     print('-------------------$result');
-    _showSuccessSnacksBar(this.context, 'Update Successfully');
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => ListScreen()));
+    _showSuccessSnackBar(this.context, 'Update Successfully');
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => ListScreen()),
+    );
   }
 
-  void _showSuccessSnacksBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(new SnackBar(content: new Text(message)));
+  void _showSuccessSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 
   delete() async {
     await dbHelper.deleteRegistrationDetails(_selectedId);
-    Navigator.of(this.context)
-        .push(MaterialPageRoute(builder: (context) => ListScreen()));
-    _showSuccessSnacksBar(this.context, 'deleted successfully');
+    Navigator.of(this.context).push(
+      MaterialPageRoute(builder: (context) => ListScreen()),
+    );
+    _showSuccessSnackBar(this.context, 'deleted successfully');
   }
 
   showAlertDialog(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Confirm Delete'),
-            actions: [
-              ElevatedButton(
-                  onPressed: () {
-                    delete();
-                  },
-                  child: Text('yes')),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('No'))
-            ],
-          );
-        });
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Confirm Delete'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                delete();
+              },
+              child: Text('yes'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('No'),
+            )
+          ],
+        );
+      },
+    );
   }
 
   Widget reuseableFormField(
-      TextEditingController userController, String hintname) {
+      TextEditingController userController,
+      String hintname,
+      String? Function(String?)? validator,
+      ) {
     return Expanded(
       child: Container(
         height: 61,
@@ -357,6 +438,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
               border: OutlineInputBorder(),
               hintText: hintname,
             ),
+            validator: validator,
           ),
         ),
       ),
