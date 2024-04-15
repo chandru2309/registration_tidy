@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:registration_tidy/helper_class.dart';
 import 'package:registration_tidy/module.dart';
@@ -15,7 +13,7 @@ class EditFormScreen extends StatefulWidget {
 }
 
 class _EditFormScreenState extends State<EditFormScreen> {
-  final _formKey = GlobalKey<FormState>(); // Add this line
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -38,11 +36,16 @@ class _EditFormScreenState extends State<EditFormScreen> {
   Widget build(BuildContext context) {
     if (!_firstTimeFlag) {
       print('data Executed');
-      _firstTimeFlag = true; // Corrected assignment here
+
+      _firstTimeFlag = true;
+
       print('Data Received');
+
       final RegistrationDetails =
-      ModalRoute.of(context)!.settings.arguments as RegistrationModels;
+          ModalRoute.of(context)!.settings.arguments as RegistrationModels;
+
       _selectedId = RegistrationDetails.id!;
+
       studentNameController.text = RegistrationDetails.studentName;
       fatherNameController.text = RegistrationDetails.fatherName;
       motherNameController.text = RegistrationDetails.motherName;
@@ -76,7 +79,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
-          key: _formKey, // Assign _formKey
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(
@@ -96,7 +99,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   CircleAvatar(
                     backgroundColor: Colors.white10,
                     backgroundImage:
-                    AssetImage('image/500x500-square-bg-trans.png'),
+                        AssetImage('image/tidy_image.png'),
                     radius: 75,
                   ),
                 ],
@@ -116,7 +119,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   reuseableFormField(
                     studentNameController,
                     'Enter Student Name',
-                        (value) {
+                    (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a student name';
                       }
@@ -140,7 +143,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   reuseableFormField(
                     fatherNameController,
                     'Enter Father Name',
-                        (value) {
+                    (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter father\'s name';
                       }
@@ -164,7 +167,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   reuseableFormField(
                     motherNameController,
                     'Enter Mother Name',
-                        (value) {
+                    (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter mother\'s name';
                       }
@@ -224,7 +227,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   reuseableFormField(
                     dateOfBirthController,
                     'Enter DOB',
-                        (value) {
+                    (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your date of birth';
                       }
@@ -250,7 +253,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   reuseableFormField(
                     emailController,
                     'Enter Email',
-                        (value) {
+                    (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter an email';
                       } else if (!value.contains('@')) {
@@ -278,7 +281,7 @@ class _EditFormScreenState extends State<EditFormScreen> {
                   reuseableFormField(
                     phoneController,
                     'Enter Phone Number',
-                        (value) {
+                    (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a phone number';
                       } else if (value.length != 10) {
@@ -375,8 +378,10 @@ class _EditFormScreenState extends State<EditFormScreen> {
       DataBaseHelper.columnGender: selectedGender.toString(),
       DataBaseHelper.columnQualification: _selectedQualification.toString(),
     };
+
     final result = await dbHelper.updateRegistrationDetails(row);
     print('-------------------$result');
+
     _showSuccessSnackBar(this.context, 'Update Successfully');
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => ListScreen()),
@@ -423,10 +428,10 @@ class _EditFormScreenState extends State<EditFormScreen> {
   }
 
   Widget reuseableFormField(
-      TextEditingController userController,
-      String hintname,
-      String? Function(String?)? validator,
-      ) {
+    TextEditingController userController,
+    String hintname,
+    String? Function(String?)? validator,
+  ) {
     return Expanded(
       child: Container(
         height: 61,

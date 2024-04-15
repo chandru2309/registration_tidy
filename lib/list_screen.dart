@@ -25,8 +25,10 @@ class _ListScreenState extends State<ListScreen> {
 
   _getRegistrationDetails() async {
     final _registrationModels = await dbHelper.getAllRegistrationDetails();
+
     _registrationModels.forEach((registrationDetailsrow) {
       setState(() {
+
         var registrationDetails = RegistrationModels(
           registrationDetailsrow[DataBaseHelper.columnId],
           registrationDetailsrow[DataBaseHelper.columnStudentName],
@@ -38,6 +40,7 @@ class _ListScreenState extends State<ListScreen> {
           registrationDetailsrow[DataBaseHelper.columnGender],
           registrationDetailsrow[DataBaseHelper.columnQualification],
         );
+
         print(registrationDetailsrow[DataBaseHelper.columnId]);
         print(registrationDetailsrow[DataBaseHelper.columnStudentName]);
         print(registrationDetailsrow[DataBaseHelper.columnFatherName]);
@@ -47,6 +50,7 @@ class _ListScreenState extends State<ListScreen> {
         print(registrationDetailsrow[DataBaseHelper.columnPhone]);
         print(registrationDetailsrow[DataBaseHelper.columnGender]);
         print(registrationDetailsrow[DataBaseHelper.columnQualification]);
+
         registrationDetailslist.add(registrationDetails);
       });
     });

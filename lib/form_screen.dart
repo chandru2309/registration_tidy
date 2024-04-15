@@ -20,8 +20,8 @@ class _FormScreenState extends State<FormScreen> {
   var dateOfBirthController = TextEditingController();
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
-  var selectedGender = 'Male'; // Default gender
-  var _selectedQualification = '10th'; // Default qualification
+  var selectedGender;
+  var _selectedQualification;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _FormScreenState extends State<FormScreen> {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.white10,
-                    backgroundImage: AssetImage('image/500x500-square-bg-trans.png'),
+                    backgroundImage: AssetImage('image/tidy_image.png'),
                     radius: 75,
                   ),
                 ],
@@ -73,7 +73,7 @@ class _FormScreenState extends State<FormScreen> {
                       if (value!.isEmpty) {
                         return 'Please enter a name';
                       }
-                      return null; // Return null if the input is valid
+                      return null;
                     },
                   ),
                 ],
